@@ -71,5 +71,5 @@ adj0708 <- matchups[ind_nna,]
 
 f <- paste("margin ~ ", paste(names[ind], collapse=" + "))
 
-adjpm.mod <- lm(f, data=adj0708)
+adjpm.mod <- lm(f, data=adj0708, weight=Poss)
 
