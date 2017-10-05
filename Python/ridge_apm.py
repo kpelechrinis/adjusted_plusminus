@@ -26,13 +26,11 @@ def obj(x):
     err = ((df.Result - pred_diff)**2).sum() + regularizer 
     return err
 
-#x0 = np.random.random(size=maxplayerID)
 x0 = np.zeros(shape=maxplayerID)
 
 res = optimize.minimize(obj,x0,constraints=[{'type':'eq', 'fun':apm_constr}], method="SLSQP",
                         options={'maxiter':10000,'disp':True})
 
-#print res.success, res.message
 print("                Player   APM")
 for i in range(len(x0)):
     print("{:>20s}    {:.4f}".format("P"+str(i+1), res.x[i]))
