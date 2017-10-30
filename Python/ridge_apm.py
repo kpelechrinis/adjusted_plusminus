@@ -11,7 +11,22 @@ l = 2
 df = pd.read_csv("data.csv")
 
 cols = [c for c in df.columns if c.startswith('P')]
-maxplayerID = df[cols].max().max()
+
+# the following code makes sure that the data frame with the lineups assings IDs starting from 1 to number.of.players-1
+players = list(set(set(df.P1.unique()) | set(df.P2.unique())| set(df.P3.unique())| set(df.P4.unique()) | set(df.P5.unique()) | set(df.P6.unique()) | set(df.P7.unique()) | set(df.P8.unique()) | set(df.P9.unique()) | set(df.P10.unique())))
+
+print players, len(players)
+
+df.P1 = df.P1.apply(lambda x: players.index(x)+1)
+df.P2 = df.P2.apply(lambda x: players.index(x)+1)
+df.P3 = df.P3.apply(lambda x: players.index(x)+1)
+df.P4 = df.P4.apply(lambda x: players.index(x)+1)
+df.P5 = df.P5.apply(lambda x: players.index(x)+1)
+df.P6 = df.P6.apply(lambda x: players.index(x)+1)
+df.P7 = df.P7.apply(lambda x: players.index(x)+1)
+df.P8 = df.P8.apply(lambda x: players.index(x)+1)
+df.P9 = df.P9.apply(lambda x: players.index(x)+1)
+df.P10 = df.P10.apply(lambda x: players.index(x)+1)
 
 def apm_constr(x):
     return np.mean(x)
@@ -33,4 +48,4 @@ res = optimize.minimize(obj,x0,constraints=[{'type':'eq', 'fun':apm_constr}], me
 
 print("                Player   APM")
 for i in range(len(x0)):
-    print("{:>20s}    {:.4f}".format("P"+str(i+1), res.x[i]))
+    print("{:>20s}    {:.4f}".format("P"+str(players[i]), res.x[i]))
