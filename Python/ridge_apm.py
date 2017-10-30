@@ -41,7 +41,7 @@ def obj(x):
     err = ((df.Result - pred_diff)**2).sum() + regularizer 
     return err
 
-x0 = np.zeros(shape=maxplayerID)
+x0 = np.zeros(shape=len(players))
 
 res = optimize.minimize(obj,x0,constraints=[{'type':'eq', 'fun':apm_constr}], method="SLSQP",
                         options={'maxiter':10000,'disp':True})
